@@ -3,19 +3,15 @@ class Solution:
         res = set()
         curr = []
         def recur(idx):
-            if len(curr) >= 2 and tuple(curr) not in res:
+            if len(curr) >= 2:
                 res.add(tuple(curr))
             if idx == len(nums):
                 return
-
-            for i in range(idx,len(nums)):
-                if curr and curr[-1] >  nums[i]:
-                    continue
-                curr.append(nums[i])
-                recur(i+1)
+            if not curr or curr[-1] <= nums[idx]:
+                curr.append(nums[idx])
+                recur(idx+1)
                 curr.pop()
-                recur(i+1)
-
+            recur(idx+1)
 
         recur(0)
 
